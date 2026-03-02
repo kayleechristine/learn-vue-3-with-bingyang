@@ -1,5 +1,89 @@
-<!--  Vue 8: V-bind -->
+<!-- Vue 9: Reactivity -->
 <template>
+  <div class="card">
+    <h2>Message: {{ message }}</h2>
+    <h2>Number: {{ number }}</h2>
+    <button @click="changeMessageToUpperCase">
+      Change Message to Uppercase
+    </button>
+    <button @click="incrementNumber">Increment Number</button>
+  </div>
+
+  <div class="card">
+    <h2>Name: {{ wizard.name }}</h2>
+    <h2>Wand: {{ wizard.wand }}</h2>
+    <button @click="changeNameToUpperCase">Change Name to Uppercase</button>
+    <button @click="changeWandCore">Change Wand Core</button>
+    <button @click="changeWizard">Change Wizard</button>
+  </div>
+
+  <div class="card">
+    <h2>Array: {{ wizards }}</h2>
+    <button @click="wizards.push('Draco')">Add a New Wizard</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+let wizards = ref(['Harry', 'Hermione', 'Ron'])
+
+let message = ref('Hello, Reactivity!')
+function changeMessageToUpperCase() {
+  message.value = message.value.toUpperCase()
+  console.log(message.value)
+}
+
+let number = ref(1)
+function incrementNumber() {
+  number.value++
+  console.log(number.value)
+}
+
+let wizard = ref({
+  id: 1001,
+  name: 'Harry Potter',
+  house: 'Gryffindor',
+  age: 17,
+  wand: {
+    core: 'Phoenix Feather',
+    wood: 'Holly'
+  }
+})
+
+function changeNameToUpperCase() {
+  wizard.value.name = wizard.value.name.toUpperCase()
+}
+
+function changeWandCore() {
+  wizard.value.wand.core = 'Unicorn Hair'
+}
+
+function changeWizard() {
+  wizard.value = {
+    id: 1002,
+    name: 'Hermione Granger',
+    house: 'Gryffindor',
+    age: 17,
+    wand: {
+      core: 'Dragon Heartstring',
+      wood: 'Vine'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.card {
+  background-color: purple;
+  color: white;
+  padding: 20px 10px;
+  margin-bottom: 10px;
+}
+</style>
+
+<!--  Vue 8: V-bind -->
+<!-- <template>
   <h1>{{ message }}</h1>
   <img v-bind:src="imageUrl" alt="">
   <br>
@@ -52,7 +136,7 @@ img {
 .center {
   text-align: center;
 }
-</style>
+</style> -->
 
 <!-- Vue 7: Mustache Notation -->
 <!-- <template>
