@@ -1,5 +1,119 @@
-<!-- Vue 9: Reactivity -->
+<!-- Vue 10: V-on -->
+
 <template>
+  <h1>{{ message }}</h1>
+  <button v-on:click="replaceText('V-on is fun!')">
+    Replace Text
+  </button>
+  <button @click="replaceText('V-on is fun!')">
+    Replace Text
+  </button>
+
+  <hr>
+
+  <p>
+    An input field where the user can ONLY enter numbers:
+  </p>
+  <input type="text" @keydown="handleInput($event)">
+
+  <hr>
+
+  <p>
+    A demo of preventing the default behavior of an event.
+  </p>
+  <p>
+    Right click in the cyan box below will not show the context menu:
+  </p>
+  <div
+    style="width: 100px; height: 100px; background-color: aqua"
+    @contextmenu.prevent="console.log('Show a custom context menu instead.')"
+  ></div>
+
+  <hr>
+
+  <p>
+    A demo of stopping event propagation:
+  </p>
+  <div id="mouseover" @mouseover="fun1">
+    <textarea @mouseover.stop="fun2($event)">
+      This is a text area.
+    </textarea>
+  </div>
+
+  <hr>
+
+  <div>
+    Press down the "Enter" key will trigger a console log print:
+    <input
+      type="text"
+      @keydown.enter="console.log('You pressed the Enter key.')"
+    />
+  </div>
+  <div>
+    Press down the "Arrow Down" key will trigger a console log print:
+    <input
+      type="text"
+      @keydown.down="console.log('You pressed the Arrow Down key.')"
+    />
+  </div>
+  <div>
+    Press down the "Space" key will trigger a console log print:
+    <input
+      type="text"
+      @keydown.space="console.log('You pressed the Space key.')"
+    />
+  </div>
+  <div>
+    Press down the "b" key will trigger a console log print:
+    <input 
+      type="text" 
+      @keydown.b="console.log('You pressed the B key.')" 
+    />
+  </div>
+  <div>
+    Press down the "Ctrl+C" will trigger a console log print:
+    <input 
+      type="text" 
+      @keydown.ctrl.c="console.log('You pressed Ctrl+C.')" 
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+let message = ref('Hello, V-on!')
+function replaceText(msg) {
+  message.value = msg
+}
+
+function handleInput(event) {
+  let keyCode = event.keyCode
+  if (keyCode < 48 || keyCode > 57) {
+    event.preventDefault()
+  }
+}
+
+function fun1() {
+  console.log('Mouse Over Div')
+}
+
+function fun2(event) {
+  console.log('Mouse Over TextArea')
+}
+</script>
+
+<style scoped>
+#mouseover {
+  text-align: right;
+  background-color: purple;
+  width: 300px;
+  height: 300px;
+}
+</style>
+
+<!-- Vue 9: Reactivity -->
+<!-- <template>
   <div class="card">
     <h2>Message: {{ message }}</h2>
     <h2>Number: {{ number }}</h2>
@@ -80,7 +194,7 @@ function changeWizard() {
   padding: 20px 10px;
   margin-bottom: 10px;
 }
-</style>
+</style> -->
 
 <!--  Vue 8: V-bind -->
 <!-- <template>
