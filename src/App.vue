@@ -1,5 +1,36 @@
-<!-- Vue 12: V-Model & V-Bind -->
+<!-- Vue 13: V-if -->
 <template>
+  <h1>{{ message }}</h1>
+  <p>
+    What has keys but can't open locks, 
+    space but no room, 
+    and you can enter but
+    can't go outside? What am I?
+  </p>
+
+  <button style="width: 200px" @click="showAnswer = !showAnswer">
+    {{ !showAnswer ? 'Show me the answer!' : 'Hide the answer!' }}
+  </button>
+
+  <div v-if="showAnswer">A keyboard.</div>
+
+  <!-- <div v-if="Math.random() > 0.5">Now you see me</div>
+  <div v-else>Now you don't</div> -->
+
+  <!-- <div v-show="showAnswer">A keyboard.</div> -->
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+let message = ref('Hello, V-if!')
+let showAnswer = ref(false)
+</script>
+
+<style scoped></style>
+
+<!-- Vue 12: V-Model & V-Bind -->
+<!-- <template>
   <h1>V-Model vs V-Bind</h1>
   <h2>message: {{ message }}</h2>
   <div>
@@ -25,7 +56,7 @@ import { ref } from 'vue'
 let message = ref('Hello!')
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
 
 <!-- Vue 11: V-Model -->
 <!-- <template>
