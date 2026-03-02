@@ -1,5 +1,34 @@
-<!-- Vue 11: V-Model -->
+<!-- Vue 12: V-Model & V-Bind -->
 <template>
+  <h1>V-Model vs V-Bind</h1>
+  <h2>message: {{ message }}</h2>
+  <div>
+    <p>v-model = v-bind + @input</p>
+    <input
+      type="text"
+      v-bind:value="message"
+      @input="message = $event.target.value"
+    />
+  </div>
+  <div>
+    <p>v-model</p>
+    <input 
+      type="text" 
+      v-model="message" 
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+let message = ref('Hello!')
+</script>
+
+<style scoped></style>
+
+<!-- Vue 11: V-Model -->
+<!-- <template>
   <h1>{{ message }}</h1>
   <h1>Welcome, {{ formData.name }}</h1>
 
@@ -85,7 +114,7 @@
         @keyup.enter="submitForm"
       ></textarea>
     </div>
-    
+
     <div>
       <input 
         type="reset" 
@@ -145,7 +174,7 @@ form div span {
   display: inline-block;
   width: 100px;
 }
-</style>
+</style> -->
 
 <!-- Vue 10: V-on -->
 <!-- <template>
