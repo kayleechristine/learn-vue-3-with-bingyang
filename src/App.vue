@@ -1,5 +1,50 @@
-<!-- Vue 14: V-for -->
+<!-- Vue 15: Array Change Detection -->
 <template>
+  <h1>{{ message }}</h1>
+  <button @click="sortUsersByAge">Sort Users by Age</button>
+  <button @click="hideInactiveUsers">Hide Inactive Users</button>
+  <button @click="showFirstTwoUsers">Show First Two Users</button>
+  <ul>
+    <li v-for="(user, index) in users" :key="user.id">
+      {{ index }} - {{ user.id }} - {{ user.name }} - {{ user.age }} -
+      {{ user.isActive }}
+    </li>
+  </ul>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+let message = ref('Hello, Array Change Detection!')
+
+const users = ref([
+  { id: 1001, name: 'John Smith', age: 26, isActive: false },
+  { id: 1002, name: 'Tom Doe', age: 16, isActive: false },
+  { id: 1003, name: 'Frankin Wong', age: 18, isActive: true }
+])
+
+function sortUsersByAge() {
+  users.value.sort((a, b) => a.age - b.age)
+}
+
+function hideInactiveUsers() {
+  users.value = users.value.filter((user) => user.isActive)
+}
+
+function showFirstTwoUsers() {
+  users.value = users.value.slice(0, 2)
+}
+</script>
+
+<style scoped>
+.inactive {
+  color: red;
+  text-decoration: line-through;
+}
+</style>
+
+<!-- Vue 14: V-for -->
+<!-- <template>
   <h1>{{ message }}</h1>
   <button @click="sortUsersByAge">
     Sort Users by Age
@@ -65,7 +110,7 @@ function sortUsersByAge() {
   color: red;
   text-decoration: line-through;
 }
-</style>
+</style> -->
 
 <!-- Vue 13: V-if -->
 <!-- <template>
