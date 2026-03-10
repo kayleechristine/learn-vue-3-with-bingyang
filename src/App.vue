@@ -1,5 +1,98 @@
-<!-- Vue 17:  -->
-<template>
+<!-- Vue 18: watchEffect -->
+ <template>
+  <h1>{{ message }}</h1>
+
+  <div>
+    <form @submit.prevent="register">
+      <div>
+        <label for="email">Email:</label>
+        <input
+          id="email"
+          v-model="email"
+          type="email"
+          placeholder="Enter Your Email"
+        />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          v-model="password"
+          type="password"
+          placeholder="Create a Password"
+        />
+      </div>
+      <button type="submit" :disabled="!isFormValid">Register</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <div class="card">
+    <h2>Name: {{ wizard1.name }}</h2>
+    <h2>Wand: {{ wizard1.wand }}</h2>
+    <h2>Age: {{ wizard1.age }}</h2>
+    <button @click="wizard1.name = wizard1.name.toUpperCase()">
+      Change Name to Uppercase
+    </button>
+    <button @click="wizard1.wand.core = 'Unicorn Hair'">
+      Change Wand Core
+    </button>
+    <button @click="wizard1.age = 20">Change Age</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+let message = ref('Hello, watchEffect!')
+const email = ref('')
+const password = ref('')
+const isFormValid = ref(false)
+
+watchEffect(() => {
+  console.log('watchEffect')
+  const hasEmail = email.value.length > 0
+  const hasPassword = password.value.length > 0
+  isFormValid.value = hasEmail && hasPassword
+})
+
+const register = () => {
+  alert('Registration successful!')
+  // TODO: Registration functionality
+}
+
+let wizard1 = ref({
+  id: 1001,
+  name: 'Harry Potter',
+  house: 'Gryffindor',
+  age: 17,
+  wand: {
+    core: 'Phoenix Feather',
+    wood: 'Holly'
+  }
+})
+
+watchEffect(() => {
+  console.log(wizard1.value.name, wizard1.value.wand.core)
+})
+
+watchEffect(() => {
+  console.log(wizard1.value)
+})
+</script>
+
+<style scoped>
+.card {
+  background-color: purple;
+  color: white;
+  padding: 20px 10px;
+  margin-bottom: 10px;
+}
+</style>
+
+<!-- Vue 17: Watchers -->
+<!-- <template>
   <h1>{{ message }}</h1>
 
   <div class="card">
@@ -148,7 +241,7 @@ watch(
   padding: 20px 10px;
   margin-bottom: 10px;
 }
-</style>
+</style> -->
 
 <!-- Vue 16: Computed Properties -->
 <!-- <template>
