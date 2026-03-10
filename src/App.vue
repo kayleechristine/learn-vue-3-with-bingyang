@@ -1,5 +1,157 @@
-<!-- Vue 16: Computed Properties -->
+<!-- Vue 17:  -->
 <template>
+  <h1>{{ message }}</h1>
+
+  <div class="card">
+    <h1>Scenario 1: Watch a "ref(primitive value)"</h1>
+    <h2>Number: {{ number }}</h2>
+    <button @click="number++">Increment Number</button>
+  </div>
+
+  <div class="card">
+    <h1>Scenario 2: Watch a Property in "ref(object)"</h1>
+    <h2>Name: {{ wizard1.name }}</h2>
+    <h2>Wand: {{ wizard1.wand }}</h2>
+    <button @click="wizard1.name = wizard1.name.toUpperCase()">
+      Change Name to Uppercase
+    </button>
+    <button @click="changeWizard1Wand">Change Wand</button>
+    <button @click="wizard1.wand.core = 'Unicorn Hair'">
+      Change Wand Core
+    </button>
+  </div>
+
+  <div class="card">
+    <h1>Scenario 3: Watch a "ref(object)"</h1>
+    <h2>Name: {{ wizard2.name }}</h2>
+    <h2>Wand: {{ wizard2.wand }}</h2>
+    <button @click="wizard2.name = wizard2.name.toUpperCase()">
+      Change Name to Uppercase
+    </button>
+    <button @click="wizard2.wand.core = 'Phoenix Feather'">
+      Change Wand Core
+    </button>
+    <button @click="changeWizard">Change Wizard</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue'
+
+let message = ref('Hello, Watchers!')
+
+let number = ref(1)
+
+// #1: Watch a primitive value
+const stopWatch = watch(number, (newValue, oldValue) => {
+  console.log(
+    'Watch a ref(primitive value): number changes',
+    newValue,
+    oldValue
+  )
+  if (newValue >= 5) {
+    stopWatch()
+  }
+})
+
+// #2: Watch a property of an object
+let wizard1 = ref({
+  id: 1001,
+  name: 'Harry Potter',
+  house: 'Gryffindor',
+  age: 17,
+  wand: {
+    core: 'Phoenix Feather',
+    wood: 'Holly'
+  }
+})
+
+function changeWizard1Wand() {
+  wizard1.value.wand = {
+    core: 'Dragon Heartstring',
+    wood: 'Vine'
+  }
+}
+
+watch(
+  () => wizard1.value.name,
+  (newValue, oldValue) => {
+    console.log(
+      'Watch a property in a ref(object): wizard1 name changes',
+      newValue,
+      oldValue
+    )
+  }
+)
+
+watch(
+  () => wizard1.value.wand,
+  (newValue, oldValue) => {
+    console.log(
+      'Watch a property in a ref(object): wizard1 wand changes',
+      newValue,
+      oldValue
+    )
+  },
+  { deep: true }
+)
+
+// #3: Watch an object
+let wizard2 = ref({
+  id: 1003,
+  name: 'Ron Weasley',
+  house: 'Gryffindor',
+  age: 17,
+  wand: {
+    core: 'Unicorn Hair',
+    wood: 'Willow'
+  }
+})
+
+function changeWizard() {
+  wizard2.value = {
+    id: 1002,
+    name: 'Hermione Granger',
+    house: 'Gryffindor',
+    age: 17,
+    wand: {
+      core: 'Dragon Heartstring',
+      wood: 'Vine'
+    }
+  }
+}
+
+watch(
+  wizard2,
+  (newValue, oldValue) => {
+    console.log('Watch a ref(object): wizard2 changes', newValue, oldValue)
+  },
+  { deep: true }
+)
+
+// #4: Watch multiple values (primitive array, property of an object, and an object)
+watch(
+  [number, () => wizard1.value.name, wizard2],
+  (newValue, oldValue) => {
+    console.log(
+      'Watch an array of ref(primitive value), a property of a ref(object), and a ref(object)'
+    )
+  },
+  { deep: true }
+)
+</script>
+
+<style scoped>
+.card {
+  background-color: purple;
+  color: white;
+  padding: 20px 10px;
+  margin-bottom: 10px;
+}
+</style>
+
+<!-- Vue 16: Computed Properties -->
+<!-- <template>
   <h1>{{ message }}</h1>
   <button @click="sortUsersByAge">Sort Users by Age</button>
   <br>
@@ -78,7 +230,7 @@ let filteredUsers = computed(() =>
   color: red;
   text-decoration: line-through;
 }
-</style>
+</style> -->
 
 <!-- Vue 15: Array Change Detection -->
 <!-- <template>
