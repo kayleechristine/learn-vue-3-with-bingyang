@@ -1,5 +1,73 @@
+<!-- Vue 20: Lifecycle Hooks -->
+ <template>
+  <h1>{{ message }}</h1>
+  <div class="card">
+    <h2 ref="title">This is the App Component.</h2>
+    <h2>Number: {{ number }}</h2>
+    <button @click="number++">Increment Number by One</button>
+    <button @click="isShow = !isShow">Toggle Component1</button>
+    <Component1 v-if="isShow"></Component1>
+  </div>
+</template>
+
+<script setup>
+import {
+  ref,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted,
+  watch
+} from 'vue'
+
+import Component1 from './Component1.vue'
+
+let message = ref('Hello, Lifecycle Hooks!')
+let number = ref(1)
+let title = ref(null)
+let isShow = ref(true)
+
+console.log('Setup App Component.')
+
+onBeforeMount(() => {
+  console.log('App Component is Before Mount.')
+  console.log(number.value)
+  console.log(title.value)
+})
+onMounted(() => {
+  console.log('App Component is Mounted.')
+  console.log(title.value)
+})
+onBeforeUpdate(() => {
+  console.log('App Component is Before Update.')
+})
+onUpdated(() => {
+  console.log('App Component is Updated.')
+})
+onBeforeUnmount(() => {
+  console.log('App Component is Before Unmount.')
+})
+onUnmounted(() => {
+  console.log('App Component is Unmounted.')
+})
+watch(number, () => {
+  console.log('Number Changed!')
+})
+</script>
+
+<style scoped>
+.card {
+  background-color: purple;
+  color: white;
+  padding: 20px 10px;
+  margin-bottom: 10px;
+}
+</style>
+
 <!-- Vue 19: Template Refs -->
-<template>
+<!-- <template>
   <div class="card">
     <h1 ref="title">Hello, Template Refs!</h1>
     <input type="text" ref="input">
@@ -35,7 +103,7 @@ onMounted(() => {
   padding: 20px 10px;
   margin-bottom: 10px;
 }
-</style>
+</style> -->
 
 <!-- Vue 18: watchEffect -->
  <!-- <template>
