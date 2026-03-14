@@ -1,5 +1,29 @@
+<!-- Vue 21: Intro Components -->
+<template>
+  <!-- pascal case (best practice): -->
+  <ButtonCounter></ButtonCounter>
+  <ButtonCounter></ButtonCounter>
+  <!-- kebab case: -->
+  <button-counter></button-counter>
+
+  <hr>
+
+  <div style="background-color: orange; padding: 5px">
+    This is the root component.
+    <ComponentA></ComponentA>
+    <ComponentA></ComponentA>
+  </div>
+</template>
+
+<script setup>
+import ButtonCounter from './ButtonCounter.vue'
+import ComponentA from '@/ComponentA.vue'
+</script>
+
+<style scoped></style>
+
 <!-- Vue 20: Lifecycle Hooks -->
- <template>
+ <!-- <template>
   <h1>{{ message }}</h1>
   <div class="card">
     <h2 ref="title">This is the App Component.</h2>
@@ -64,7 +88,7 @@ watch(number, () => {
   padding: 20px 10px;
   margin-bottom: 10px;
 }
-</style>
+</style> -->
 
 <!-- Vue 19: Template Refs -->
 <!-- <template>
