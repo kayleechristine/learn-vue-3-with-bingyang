@@ -1,5 +1,24 @@
-<!-- Vue 26: Provide & Inject -->
+<!-- Vue 27: Slots -->
 <template>
+  <AlertBox>
+    Invalid username or password! Please try again.
+  </AlertBox>
+  <AlertBox></AlertBox>
+  <AlertBox>
+    <h1>
+      The request timed out. Please refresh the page and try again.
+    </h1>
+  </AlertBox>
+</template>
+
+<script setup>
+import AlertBox from './AlertBox.vue'
+</script>
+
+<style scoped></style>
+
+<!-- Vue 26: Provide & Inject -->
+<!-- <template>
   <h1>Message: {{ message }}</h1>
   <div style="background-color: orange; padding-left: 10px">
     <ComponentA></ComponentA>
@@ -20,7 +39,7 @@ let count = ref(0)
 provide('read-only-count', readonly(count))
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
 
 <!-- Vue 25: Component V-Model -->
 <!--<template>
