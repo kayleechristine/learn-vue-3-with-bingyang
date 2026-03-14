@@ -1,5 +1,27 @@
-<!-- Vue 27: Slots -->
+<!-- Vue 28: Named Slots -->
 <template>
+  <BaseLayout>
+    <template #header>
+      <h1>Here is a page title.</h1>
+    </template>
+    <template #main>
+      <p>A paragraph of the main content.</p>
+      <p>And another one.</p>
+    </template>
+    <template #footer>
+      <p>Here is some contact info.</p>
+    </template>
+  </BaseLayout>
+</template>
+
+<script setup>
+import BaseLayout from './BaseLayout.vue'
+</script>
+
+<style scoped></style>
+
+<!-- Vue 27: Slots -->
+<!-- <template>
   <AlertBox>
     Invalid username or password! Please try again.
   </AlertBox>
@@ -15,7 +37,7 @@
 import AlertBox from './AlertBox.vue'
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
 
 <!-- Vue 26: Provide & Inject -->
 <!-- <template>
