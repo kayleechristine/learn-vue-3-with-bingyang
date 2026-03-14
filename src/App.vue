@@ -1,5 +1,29 @@
-<!-- Vue 25: Component V-Model -->
+<!-- Vue 26: Provide & Inject -->
 <template>
+  <h1>Message: {{ message }}</h1>
+  <div style="background-color: orange; padding-left: 10px">
+    <ComponentA></ComponentA>
+  </div>
+</template>
+
+<script setup>
+import { ref, provide, readonly } from 'vue'
+import ComponentA from './ComponentA.vue'
+
+let message = ref('Hello, Provide/inject!')
+function updateMessage() {
+  message.value = 'Hello, Provide/inject! Updated.'
+}
+provide('msg', { message, updateMessage })
+
+let count = ref(0)
+provide('read-only-count', readonly(count))
+</script>
+
+<style scoped></style>
+
+<!-- Vue 25: Component V-Model -->
+<!--<template>
   <BlogPost v-for="post in posts" :key="post.id" :id="post.id" v-model:blogPostTitle="post.blogPostTitle"
     v-model:blogPostContent="post.blogPostContent" @delete-blog-post="processDeletion"></BlogPost>
 </template>
@@ -41,7 +65,7 @@ function processDeletion(id) {
 }
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
 
 <!-- Vue 24: Component Events -->
 <!-- <template>
