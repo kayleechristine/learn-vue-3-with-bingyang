@@ -1,34 +1,63 @@
-<!-- Vue 23: Props -->
+<!-- Vue 24: Component Events -->
 <template>
-  <BlogPost
-    id="1"
-    blogPostTitle="What is a muggle?"
-    blogPostContent="A muggle is a person who lacks any sort of magical ability..."
-  >
+  <BlogPost v-for="post in posts" :key="post.id" v-bind="post" @delete-blog-post="processDeletion"></BlogPost>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import BlogPost from './BlogPost.vue'
+let posts = ref([
+  {
+    id: 1,
+    blogPostTitle: 'What is a muggle in HP world?',
+    blogPostContent:
+      'A muggle is a person who lacks any sort of magical ability...'
+  },
+  {
+    id: 2,
+    blogPostTitle:
+      'HP and the Cursed Child Broadway production suspended until April',
+    blogPostContent:
+      'Adding to the earlier post, the Broadway production of Harry Potter and the Cursed Child has been...'
+  },
+  {
+    id: 3,
+    blogPostTitle: 'Potter DIY: Make Your Own “Harry Potter Puppet Pal”',
+    blogPostContent:
+      'We all remember those iconic YouTube videos of Harry and the gang and probably couldn’t get “The Mysterious...'
+  },
+  {
+    id: 4,
+    blogPostTitle: 'Fan Project Brings Life to “Harry Potter” in Translation',
+    blogPostContent:
+      'It’s no secret that the Harry Potter series is a global phenomenon, having been translated into over 80 languages to date....'
+  }
+])
+
+function processDeletion(id) {
+  let index = posts.value.findIndex((item) => item.id == id)
+  posts.value.splice(index, 1)
+}
+</script>
+
+<style scoped></style>
+
+<!-- Vue 23: Props -->
+<!-- <template>
+  <BlogPost id="1" blogPostTitle="What is a muggle?"
+    blogPostContent="A muggle is a person who lacks any sort of magical ability...">
   </BlogPost>
 
-  <BlogPost
-    id="1"
-    blog-post-title="What is a muggle?"
-    blog-post-content="A muggle is a person who lacks any sort of magical ability..."
-  >
+  <BlogPost id="1" blog-post-title="What is a muggle?"
+    blog-post-content="A muggle is a person who lacks any sort of magical ability...">
   </BlogPost>
 
-  <BlogPost
-    :id="blogPostId"
-    :blog-post-title="blogPostTitle"
-    :blog-post-content="blogPostContent"
-  ></BlogPost>
+  <BlogPost :id="blogPostId" :blog-post-title="blogPostTitle" :blog-post-content="blogPostContent"></BlogPost>
 
-  <hr />
+  <hr>
 
-  <BlogPost
-    v-for="post in posts"
-    :key="post.id"
-    :id="post.id"
-    :blog-post-title="post.blogPostTitle"
-    :blog-post-content="post.blogPostContent"
-  ></BlogPost>
+  <BlogPost v-for="post in posts" :key="post.id" :id="post.id" :blog-post-title="post.blogPostTitle"
+    :blog-post-content="post.blogPostContent"></BlogPost>
 
   <hr>
 
@@ -76,7 +105,7 @@ let posts = ref([
 ])
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
 
 <!-- Vue 21: Intro Components -->
 <!--<template>
@@ -101,7 +130,7 @@ import ComponentA from '@/ComponentA.vue'
 <style scoped></style> -->
 
 <!-- Vue 20: Lifecycle Hooks -->
- <!-- <template>
+<!-- <template>
   <h1>{{ message }}</h1>
   <div class="card">
     <h2 ref="title">This is the App Component.</h2>
@@ -208,7 +237,7 @@ onMounted(() => {
 </style> -->
 
 <!-- Vue 18: watchEffect -->
- <!-- <template>
+<!-- <template>
   <h1>{{ message }}</h1>
 
   <div>
